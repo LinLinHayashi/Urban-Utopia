@@ -1,12 +1,17 @@
 import {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom'; 
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {signInStart, signInSuccess, signInFailure} from '../redux/user/userSlice';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({username: '', email: '', password: ''}); // The attributes must be intialized to prevent an uncaught JSON error, which can confuse you into thinking it's a Vite proxy error!
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  
+  // Now "loading" and "error" variables will change following how "loading" and "error" attributes of "user" change, and "user" is in fact "userSlice" as defined.
+  const {loading, error} = useSelector((state) => state.user);
 
+  // Initialize the functions so we can use them later in the file.
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({
@@ -22,7 +27,7 @@ export default function SignIn() {
     try {
     */
 
-      setLoading(true); // Data loading starts; the button is disabled.
+      dispatch(signInStart()); // Data loading starts; the button is disabled.
 
       // Send a POST request to the URL with data and await the response, which will be stored in the "res" variable.
       const res = await fetch('/api/auth/signin',
@@ -40,20 +45,17 @@ export default function SignIn() {
 
       // If there is an error, as per the middleware for error handling we created in "index.js" in the backend.
       if (data.success === false) {
-        setLoading(false); // Data loading completed; the button is enabled.
-        setError(data.message); // "error" now stores the error message.
+        dispatch(signInFailure(data.message));
         return; // End "handleSubmit" function as we have an error.
       }
 
       // If we are here, then we are successfully signed in.
-      setLoading(false); // Data loading completed; the button is enabled.
-      setError(null); // Reset "error".
+      dispatch(signInSuccess(data)); // "data" is the User record of the user signed in.
       navigate('/home'); // Navigate to home page after successfully signed in.
 
     /* Code here seems unnecessary.
-    } catch (error) { // We use "try/catch" here to handle errors NOT defined in the backend.
-      setLoading(false); // Data loading completed; the button is enabled.
-      setError(error.message); // This is the error NOT defined in the backend.
+    } catch (error) {
+      dispatch(signInFailure(data.message));
     }
     */
 
