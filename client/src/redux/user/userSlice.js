@@ -8,8 +8,8 @@ const initialState = {
 
 // Create a slice called "userSlice" and define it. A slice is a part of the store.
 const userSlice = createSlice({ 
-  name: 'user',
-  initialState,
+  name: 'user', // The name of the state.
+  initialState, // The initial value of the state.
 
   // Reducers are functions that describe how the state changes in response to actions. They take the current state and/or an action as arguments and return a new state.
   reducers: {
