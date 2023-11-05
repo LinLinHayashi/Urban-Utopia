@@ -8,7 +8,7 @@ export default function SignIn() {
   const [formData, setFormData] = useState({username: '', email: '', password: ''}); // The attributes must be intialized to prevent an uncaught JSON error, which can confuse you into thinking it's a Vite proxy error!
   
   // Now "loading" and "error" variables will change following how "loading" and "error" attributes of "user" change, and "user" is in fact "userSlice" as defined.
-  const {loading, error} = useSelector((state) => state.user);
+  const {loading, error} = useSelector(state => state.user);
 
   // Initialize the functions so we can use them later in the file.
   const navigate = useNavigate();

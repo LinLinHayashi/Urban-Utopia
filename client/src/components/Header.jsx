@@ -1,7 +1,12 @@
 import {FaSearch} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 export default function Header() {
+
+  // Now "currentUser" variable will change following how "currentUser" attribute of "user" change, and "user" is in fact "userSlice" as defined.
+  const {currentUser} = useSelector(state => state.user);
+  
   return (
     <header className='bg-slate-200 shadow-md'>
       <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
@@ -22,8 +27,12 @@ export default function Header() {
           <Link to='/about'>
             <li className='hidden sm:inline text-slate-700 hover:underline'>About</li>
           </Link>
-          <Link to='/sign-in'>
-            <li className='text-slate-700 hover:underline'>Sign in</li>
+          <Link to='/profile'>
+            {currentUser ? ( // If "currentUser" is not null, then we know some user has signed in (as defined in "userSlice.js"), so we show the user's photo.
+              <img src={currentUser.avatar} alt='Profile' className='rounded-full h-7 w-7 object-cover' />
+            ) : ( // If "currentUser" is null, then we know no user has signed in, so we show "Sign in".
+              <li className='text-slate-700 hover:underline'>Sign in</li>
+            )}
           </Link>
         </ul>
       </div>
