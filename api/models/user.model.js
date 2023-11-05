@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: false
   },
+  avatar: {
+    type: String,
+    default: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+  }
 }, {timestamps: true}); // Include two extra time information: creation time of the user and update time of the user.
 
 // Create a "User" model applying the schema in the MongoDB collection.

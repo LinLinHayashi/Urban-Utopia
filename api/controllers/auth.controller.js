@@ -34,3 +34,31 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
+
+export const google = async (req, res, next) => {
+  try {
+    const user = await User.findOne({email: req.body.email});
+
+    // If "user" is not null; this means we found a User record in the database that matches the email.
+    if (user) {
+      const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+      const {password: pass, ...rest} = user._doc;
+      res.cookie('access_token', token, {httpOnly: true}).status(200).json(rest);
+
+    // If "user" is null; this means we didn't find a User record in the database that matches the email and we need to create it.
+    } else {
+
+      // Since User model requires a password, but the Google-authenticated user has no password, we need to create a password to create the User record.
+      const generatedPassword = Math.random().toString(36).slice(-8); // Generate a random number between 0 and 1 and converts it into a base-36 string (0 to 9 and "a" to "z"), and then take the last 8 digits of it. We concatenate two such strings to form a 16-digit password.
+
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+      const newUser = new User({username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4), email: req.body.email, password: hashedPassword, avatar: req.body.photo}); // Note that this is how we process a user name like "Lin Lin". We conver it to "linlin" first and then concatenate it with a random 4-digit string.
+      await newUser.save();
+      const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET);
+      const {password: pass, ...rest} = user._doc;
+      res.cookie('access_token', token, {httpOnly: true}).status(200).json(rest);
+    }
+  } catch(error) {
+    next(error);
+  }
+};

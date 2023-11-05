@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {signInStart, signInSuccess, signInFailure} from '../redux/user/userSlice';
+import OAuth from '../components/OAuth';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({username: '', email: '', password: ''}); // The attributes must be intialized to prevent an uncaught JSON error, which can confuse you into thinking it's a Vite proxy error!
@@ -51,7 +52,7 @@ export default function SignIn() {
 
       // If we are here, then we are successfully signed in.
       dispatch(signInSuccess(data)); // "data" is the User record of the user signed in.
-      navigate('/home'); // Navigate to home page after successfully signed in.
+      navigate('/'); // Navigate to home page after successfully signed in.
 
     /* Code here seems unnecessary.
     } catch (error) {
@@ -68,6 +69,7 @@ export default function SignIn() {
         <input type='email' placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChange} />
         <input type='password' placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChange} />
         <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...' : 'Sign In'}</button>
+        <OAuth />
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Dont have an account?</p>
