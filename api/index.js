@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js'; // We import the router from the specified file but change its name.
 import authRouter from './routes/auth.route.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config(); // Validate the .env file.
 mongoose.connect(process.env.MONGO).then(() => console.log('Connect to MongoDB!')).catch(err => console.log(err)); // Connect the server to MongoDB.
@@ -10,6 +11,8 @@ mongoose.connect(process.env.MONGO).then(() => console.log('Connect to MongoDB!'
 const app = express();
 
 app.use(express.json()); // This allows the server to accept requests with a JSON body.
+
+app.use(cookieParser()); // We need this to verify tokens.
 
 // Run the server.
 app.listen(3000, () => {
