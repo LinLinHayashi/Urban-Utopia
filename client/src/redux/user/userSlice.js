@@ -24,6 +24,18 @@ const userSlice = createSlice({
     signInFailure: (state, action) => {
       state.error = action.payload;
       state.loading = false;
+    },
+    updateUserStart: (state) => {
+      state.loading = true;
+    },
+    updateUserSuccess: (state, action) => {
+      state.currentUser = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    updateUserFailure: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
     }
   }
 });
@@ -38,6 +50,6 @@ const userSlice = createSlice({
     signInFailure: createAction('user/signInFailure)
    }
 */
-export const {signInStart, signInSuccess, signInFailure} = userSlice.actions; // Each of these three variables is an action creator now.
+export const {signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure} = userSlice.actions; // Each of these six variables is an action creator now.
 
 export default userSlice.reducer; // "default" means we can change its name when importing it in other files. 
