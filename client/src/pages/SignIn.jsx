@@ -23,11 +23,7 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // This prevents refreshing the page when the form is submitted.
-
-    /* Code here seems unnecessary.
     try {
-    */
-
       dispatch(signInStart()); // Data loading starts; the button is disabled.
 
       // Send a POST request to the URL with data and await the response, which will be stored in the "res" variable.
@@ -54,12 +50,9 @@ export default function SignIn() {
       dispatch(signInSuccess(data)); // "data" is the User record of the user signed in.
       navigate('/'); // Navigate to home page after successfully signed in.
 
-    /* Code here seems unnecessary.
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
-    */
-
   };
 
   return (

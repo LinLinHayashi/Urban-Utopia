@@ -22,7 +22,7 @@ export default function OAuth() {
       console.log(result);
 
       // Send a POST request to the URL with data and await the response, which will be stored in the "res" variable.
-      const res = await fetch('/api/auth/google', {
+      const res = await fetch('/api/auth/google', { // There could ba a bug here.
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

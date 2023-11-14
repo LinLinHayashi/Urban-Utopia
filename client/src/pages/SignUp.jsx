@@ -18,11 +18,7 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // This prevents refreshing the page when the form is submitted.
-
-    /* Code here seems unnecessary.
     try {
-    */
-
       setLoading(true); // Data loading starts; the button is disabled.
 
       // Send a POST request to the URL with data and await the response, which will be stored in the "res" variable.
@@ -51,13 +47,10 @@ export default function SignUp() {
       setError(null); // Reset "error".
       navigate('/sign-in'); // Navigate to sign-in page after successfully signed up.
 
-    /* Code here seems unnecessary.
     } catch (error) { // We use "try/catch" here to handle errors NOT defined in the backend.
       setLoading(false); // Data loading completed; the button is enabled.
       setError(error.message); // This is the error NOT defined in the backend.
     }
-    */
-
   };
 
   return (
