@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js'; // We import the router from the specified file but change its name.
 import authRouter from './routes/auth.route.js';
+import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
 
 dotenv.config(); // Validate the .env file.
@@ -22,6 +23,7 @@ app.listen(3000, () => {
 // This is how we call an API router.
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/listing', listingRouter);
 
 // The middleware for error handling.
 app.use((err, req, res, next) => {
