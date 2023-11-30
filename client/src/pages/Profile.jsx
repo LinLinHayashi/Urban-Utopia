@@ -29,7 +29,7 @@ export default function Profile() {
 
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
-  // Initialize the functions so we can use them later in the file.
+  // Initialize the function so we can use it later in the file.
   const dispatch = useDispatch();
 
   // Whenever "file" changes, if "file" is not undefined, then run handleFileUpload().
