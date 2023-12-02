@@ -1,6 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import {errorHandler} from '../utils/error.js';
+import Listing from '../models/listing.model.js';
 
 export const test = (req, res) => {
   res.json({
@@ -20,7 +21,7 @@ export const updateUser = async (req, res, next) => {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
     }
 
-    // "findByIdAndUpdate" function will find the Use record of "req.params.id" and update those attributes in "$set". Attributes in "$set" will be updated if new value is sent through request for that attribute and will stay the same if no value is sent through request for that attribute.
+    // "findByIdAndUpdate" function will find the User record of "req.params.id" and update those attributes in "$set". Attributes in "$set" will be updated if new value is sent through request for that attribute and will stay the same if no value is sent through request for that attribute.
     const updateUser = await User.findByIdAndUpdate(req.params.id, {
       $set: { // Note that here we can't simply put "req.body" in "$set" since a hacker would use this to change some hidden attributes (such as "admin: true") of User records.
         username: req.body.username,
@@ -48,5 +49,18 @@ export const deleteUser = async (req, res, next) => {
     res.status(200).json('User has been deleted!');
   } catch (error) {
     next(error);
+  }
+};
+
+export const getUserListing = async (req, res, next) => {
+  if (req.user.id === req.params.id){
+    try {
+      const listing = await Listing.find({userRef: req.params.id});
+      res.status(200).json(listing);
+    } catch (error){
+      next(error);
+    }
+  } else {
+    return next(errorHandler(401, 'You can only view your own listings!'));
   }
 };

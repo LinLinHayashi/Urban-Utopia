@@ -16,6 +16,6 @@ export const verifyToken = (req, res, next) => {
     // Otherwise, we know the requesting user is the "user" holding the token. Then, we can assign all attributes of "user" to the requesting user for following User record update.
     req.user = user;
 
-    next(); // We proceed to the next function, which is "updateUser" or "deleteUser" as defined in "user.route.js".
+    next(); // We proceed to the next function such as "updateUser" or "deleteUser" defined in "user.route.js".
   });
 };
