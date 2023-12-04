@@ -79,6 +79,6 @@ export const {
   updateUserStart, updateUserSuccess, updateUserFailure,
   deleteUserStart, deleteUserSuccess, deleteUserFailure,
   signOutUserStart, signOutUserSuccess, signOutUserFailure
-} = userSlice.actions; // Each of these nine variables is an action creator now.
+} = userSlice.actions; // Each of these variables is an action creator now.
 
 export default userSlice.reducer; // "default" means we can change its name when importing it in other files. 
