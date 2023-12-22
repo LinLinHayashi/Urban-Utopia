@@ -14,9 +14,13 @@ export default function Listing() {
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
+
   const params = useParams();
+
   SwiperCore.use([Navigation]); // Note the syntax here. Why?
+  
   const {currentUser} = useSelector(state => state.user); // Note that "currentUser" must be a destructor. Why?
+
   useEffect(() => {
     const fetchListing = async () => {
       try {
