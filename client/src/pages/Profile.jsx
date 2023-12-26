@@ -6,7 +6,7 @@ import {updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, 
 import {Link} from 'react-router-dom';
 
 export default function Profile() {
-  const {currentUser, loading, error} = useSelector(state => state.user);
+  const {currentUser, loading, error} = useSelector(state => state.user); // "useSelector()" is used to read data from the store.
 
   /*
     This is how useRef Hook works:
@@ -30,7 +30,7 @@ export default function Profile() {
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
 
-  // Initialize the function so we can use it later in the file.
+  // Initialize the function so we can use it later in the file. "useDispatch()" is used to send data to the store.
   const dispatch = useDispatch();
 
   // Whenever "file" changes, if "file" is not undefined, then run handleFileUpload().
