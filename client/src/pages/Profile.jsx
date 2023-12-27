@@ -127,6 +127,7 @@ export default function Profile() {
     }
   };
 
+  // Note that, as defined in this function, we first delete the cookie and then set the "currentUser" to null in the local storage when we sign out. This indicates that even though the cookie expires, since the current user's User record (without the password) is still stored in the "currentUser" in the local storage, we are still signed in unless we manually sign out by calling this function.
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
