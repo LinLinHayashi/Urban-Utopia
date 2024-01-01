@@ -1,9 +1,23 @@
 import {FaSearch} from 'react-icons/fa';
 import {Link, useNavigate} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect} from 'react';
+import {signOutUserSuccess} from '../redux/user/userSlice';
 
 export default function Header() {
+  const dispatch = useDispatch();
+
+  // When the cookie has expired, the user will be signed out automatically.
+  useEffect(() => {
+    const cookieChecker = async () => {
+      const res = await fetch('/api/auth/token');
+      const data = await res.json();
+      if (data === 'Token has expired!'){
+        dispatch(signOutUserSuccess());
+      }
+    };
+    cookieChecker();
+  }, []);
 
   // Now "currentUser" variable will change following how "currentUser" attribute of "user" change, and "user" is in fact "userSlice" as defined.
   const {currentUser} = useSelector(state => state.user);

@@ -5,7 +5,7 @@ export const verifyToken = (req, res, next) => {
   const token = req.cookies.access_token; // "access_token" is the token name we defined in "auth.controller.js".
 
   // If no token in the request, return the error using the function we defined in "error.js".
-  if (!token) return next(errorHandler(401, 'Unauthorized'));
+  if (!token) return next(errorHandler(401, 'Unauthorized or cookie has expired'));
 
   // Verify if the token in the request is an existing token. 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
@@ -18,4 +18,13 @@ export const verifyToken = (req, res, next) => {
 
     next(); // We proceed to the next function such as "updateUser" or "deleteUser" defined in "user.route.js".
   });
+};
+
+// The middleware that checks if the cookie has expired.
+export const tokenExist = (req, res) => {
+  const token = req.cookies.access_token;
+  if (!token){
+    res.status(200).json('Token has expired!');
+  }
+  res.status(200).json('We are good!');
 };
