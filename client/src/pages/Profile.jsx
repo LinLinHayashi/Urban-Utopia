@@ -201,9 +201,7 @@ export default function Profile() {
         </Link>
       </form>
       <div className='flex justify-between mt-5'>
-        {!currentUser.isGoogle &&
-          <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete account</span>
-        }
+        <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer' disabled={!currentUser.isGoogle}>Delete account</span>
         <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>Sign out</span>
       </div>
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
