@@ -52,7 +52,7 @@ export const google = async (req, res, next) => {
       const generatedPassword = Math.random().toString(36).slice(-8); // Generate a random number between 0 and 1 and converts it into a base-36 string (0 to 9 and "a" to "z"), and then take the last 8 digits of it. We concatenate two such strings to form a 16-digit password.
 
       const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
-      const newUser = new User({username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4), email: req.body.email, password: hashedPassword, avatar: req.body.photo}); // Note that this is how we process a user name like "Lin Lin". We conver it to "linlin" first and then concatenate it with a random 4-digit string.
+      const newUser = new User({username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4), email: req.body.email, password: hashedPassword, avatar: req.body.photo, isGoogle: true}); // Note that this is how we process a user name like "Lin Lin". We conver it to "linlin" first and then concatenate it with a random 4-digit string.
       await newUser.save();
       const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET);
       const {password: pass, ...rest} = user._doc;
