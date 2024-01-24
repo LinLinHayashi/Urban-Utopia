@@ -10,7 +10,7 @@ For now, this application is deployed on Render with the free plan so it may tak
 
 This full-stack production-ready CRUD web application is developed to create an online platform catering to real estate landlords. It enables them to effectively create, update, and delete listings that showcase and market their properties for sale or rent. Simultaneously, it empowers potential property buyers and tenants to read listings on this platform to explore available homes, connecting them directly with landlords to kickstart property transactions or leasing processes. Its compatibility spans both desktop and portable device browsers, ensuring seamless user access.
 
-# Features and Functionalities
+# Usage
 
 This application is built on **Node.js**. It employs **React** to enhance client-side interactivity, integrates **Tailwind CSS** for crafting stylish web pages and components, and utilizes **Express.js** to power the backend API.
 
